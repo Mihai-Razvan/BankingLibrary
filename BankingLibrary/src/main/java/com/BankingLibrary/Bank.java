@@ -33,6 +33,22 @@ public class Bank {
         newDocument.append("cardNumber", cardNumber);
         newDocument.append("cvv", cvv);
         newDocument.append("expirationDate", expirationDate);
+        newDocument.append("sold", 0);
+
+        collection.insertOne(newDocument);
+    }
+
+    public static void addCard(String cardNumber, String cvv, String expirationDate, int sold) throws MongoCommandException {
+
+        MongoClient mongoClient = MongoClients.create(connectionString);
+        MongoDatabase database = mongoClient.getDatabase("CardsDB");
+        MongoCollection<Document> collection = database.getCollection("Cards");
+
+        Document newDocument = new Document();
+        newDocument.append("cardNumber", cardNumber);
+        newDocument.append("cvv", cvv);
+        newDocument.append("expirationDate", expirationDate);
+        newDocument.append("sold", sold);
 
         collection.insertOne(newDocument);
     }
